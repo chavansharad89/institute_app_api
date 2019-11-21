@@ -48,13 +48,16 @@ async function updateCourse(req, res) {
 
 async function deleteCourse(req, res) {
     try {
+        console.log("called");
         const [, {roleName}] = await Promise.all([
             _validateCourseId(req.params),
             TokenService.getTokenDetails(req)
         ]);
-        if(roleName !== Utils.Constant.ROLES.ADMIN) {
+        if(roleName !== Constant.ROLES.ADMIN) {
             throw _throwPermissionDeniedError();
         }
+        const {courseId} = req.params;
+        
         const result = await CourseService.deleteCourse(courseId);
         Response.handleSuccess(result, res);
     } catch (err) {

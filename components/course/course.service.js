@@ -40,8 +40,8 @@ async function updateCourse(courseId, detailsToUpdate) {
         CourseId
     }
 }
-async function deleteCourse(CourseId) {
-    await getCourseDetailsByCourseId(CourseId);
+async function deleteCourse(courseId) {
+    await getCourseDetailsByCourseId(courseId);
     await _deleteCourse(courseId);
     return true;
 }
@@ -116,13 +116,13 @@ function _throwAlreadyExistsError(value) {
     }
 }
 
-function _deleteCourse(CourseId, courseId) {
+function _deleteCourse(courseId) {
     return Models
         .Course
         .update({
-            is_active : false
+            isDeleted : true
         }, {
-            courseId
+            where: {courseId}
         });
 }
 

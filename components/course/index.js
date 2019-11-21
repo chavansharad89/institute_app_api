@@ -14,5 +14,6 @@ function routes(express) {
 function mobileRoutes(express) {
     const router = express.Router();
     router.post('/create', CourseController.addCourse);
+    router.delete('/delete/:courseId', CourseController.deleteCourse);
     return router;
 }
